@@ -1,90 +1,79 @@
-# 智能科技企业网站
+# 科研信息管理系统
 
-## 项目概述
+一个基于Django的科研信息管理平台，用于管理和展示科研项目、成果和研究人员信息。
 
-智能科技企业网站是一个基于Django开发的现代化企业门户网站，采用多应用架构设计，致力于展示企业的产品、科研成果和服务能力。网站设计风格借鉴苹果官网的简约美学，结合了Bootstrap框架和自定义CSS，打造现代感强、响应式的用户体验。
+## 项目特点
 
-## 特色功能
-
-- 现代设计风格：采用渐变色、卡片式布局和精美动效
-- 完全响应式：完美适配从手机到大屏显示器的各种设备
-- 数据可视化：集成Chart.js实现科研成果数据的动态图表展示
-- 模块化架构：采用Django多应用设计，实现功能模块化
-- SEO友好：符合SEO最佳实践，提高搜索引擎可见性
-- 管理后台：强大的Django管理界面，轻松管理网站内容
+- 科研项目管理与展示
+- 研究成果跟踪与统计
+- 研究人员信息管理
+- 数据可视化展示
+- 响应式设计，支持多设备访问
 
 ## 技术栈
 
-- **后端**: 
-  - Django 2.2.4
-  - Python 3.x
-  - SQLite (开发环境)
+- **后端**: Django 2.2.4
+- **前端**: HTML5, CSS3, JavaScript, Chart.js
+- **数据库**: SQLite (开发) / MySQL (生产)
+- **图像处理**: Pillow
 
-- **前端**: 
-  - HTML5 / CSS3
-  - Bootstrap 4.6
-  - JavaScript / jQuery
-  - Chart.js (数据可视化)
-  - Font Awesome (图标库)
+## 安装步骤
 
-## 安装与部署
+1. 克隆仓库
+   ```bash
+   git clone https://github.com/yourusername/science-app.git
+   cd science-app
+   ```
 
-### 系统要求
+2. 创建并激活虚拟环境
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # Windows使用: venv\Scripts\activate
+   ```
 
-- Python 3.6+
-- pip (Python包管理器)
-- 虚拟环境工具 (推荐使用virtualenv或venv)
+3. 安装依赖
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-### 安装步骤
+4. 数据库迁移
+   ```bash
+   python manage.py migrate
+   ```
 
-1. **克隆项目仓库**
+5. 创建超级用户
+   ```bash
+   python manage.py createsuperuser
+   ```
 
-```bash
-git clone https://github.com/a135435/a135435.git
-cd a135435
+6. 运行开发服务器
+   ```bash
+   python manage.py runserver
+   ```
+
+## 使用说明
+
+- 访问 `http://127.0.0.1:8000/` 浏览网站
+- 访问 `http://127.0.0.1:8000/admin/` 进入管理后台
+
+## 项目结构
+
+```
+science-app/
+├── manage.py
+├── scienceApp/         # 主应用
+│   ├── admin.py        # 管理后台配置
+│   ├── models.py       # 数据模型
+│   ├── views.py        # 视图函数
+│   ├── urls.py         # URL路由
+│   ├── templates/      # HTML模板
+│   └── static/         # 静态文件
+└── science_project/    # 项目设置
+    ├── settings.py
+    ├── urls.py
+    └── wsgi.py
 ```
 
-2. **创建并激活虚拟环境**
+## 许可证
 
-```bash
-# Windows系统
-python -m venv venv
-venv\Scripts\activate
-
-# Linux/Mac系统
-python3 -m venv venv
-source venv/bin/activate
-```
-
-3. **安装依赖包**
-
-```bash
-pip install -r requirements.txt
-```
-
-4. **执行数据库迁移**
-
-```bash
-python manage.py makemigrations
-python manage.py migrate
-```
-
-5. **创建超级管理员账号**
-
-```bash
-python manage.py createsuperuser
-```
-
-6. **启动开发服务器**
-
-```bash
-python manage.py runserver
-```
-
-## 作者
-
-- 小黄
-
----
-
-© 2024 智能科技有限公司. 保留所有权利.
+本项目采用MIT许可证，详情请查看LICENSE文件。
