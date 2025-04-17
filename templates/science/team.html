@@ -1,0 +1,234 @@
+{% extends 'base.html' %}
+{% block title %}研究团队 - 制造科学应用{% endblock %}
+
+{% block extra_css %}
+<style>
+    .team-header {
+        background-color: var(--primary-color);
+        padding: 80px 0;
+        color: white;
+    }
+    
+    .member-card {
+        transition: all 0.3s;
+        border: none;
+        border-radius: 12px;
+        overflow: hidden;
+        height: 100%;
+    }
+    
+    .member-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+    
+    .member-img {
+        height: 250px;
+        object-fit: cover;
+    }
+    
+    .member-img-small {
+        height: 200px;
+        object-fit: cover;
+    }
+    
+    .member-social {
+        margin-top: 15px;
+    }
+    
+    .member-social a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: #f0f0f0;
+        color: var(--primary-color);
+        margin-right: 8px;
+        transition: all 0.3s;
+    }
+    
+    .member-social a:hover {
+        background-color: var(--primary-color);
+        color: white;
+    }
+    
+    .team-values {
+        background-color: #f9f9f9;
+    }
+    
+    .value-card {
+        border: none;
+        border-radius: 12px;
+        transition: all 0.3s;
+        height: 100%;
+    }
+    
+    .value-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .value-icon {
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 86, 179, 0.1);
+        color: var(--primary-color);
+        font-size: 1.75rem;
+        border-radius: 50%;
+        margin-bottom: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- 团队标题部分 -->
+<section class="team-header">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-8">
+                <h1 class="display-5 fw-bold mb-4">研究团队</h1>
+                <p class="lead mb-0">我们拥有一支由经验丰富的研究人员组成的团队，致力于推动制造科学领域的发展与创新</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 团队简介部分 -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h2 class="section-title">关于我们的团队</h2>
+                <p class="lead">由经验丰富的专家组成，致力于制造科学领域的突破性研究</p>
+                <p>我们的团队由来自不同学科背景的专业研究人员组成，包括工程师、科学家、技术专家和项目管理人员。团队成员拥有丰富的行业经验和学术背景，共同致力于解决制造领域的关键技术挑战。</p>
+                <p>通过跨学科合作和创新思维，我们不断推动科研成果的实际应用，为制造业的发展贡献力量。</p>
+            </div>
+            <div class="col-lg-6">
+                <img src="https://via.placeholder.com/800x500?text=团队合影" alt="团队合影" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 核心团队成员 -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">核心团队成员</h2>
+        <div class="row g-4">
+            {% for member in key_members %}
+            <div class="col-md-6 col-lg-3">
+                <div class="card member-card shadow-sm">
+                    {% if member.avatar %}
+                    <img src="{{ member.avatar.url }}" class="member-img" alt="{{ member.name }}">
+                    {% else %}
+                    <img src="https://via.placeholder.com/400x500?text={{ member.name }}" class="member-img" alt="{{ member.name }}">
+                    {% endif %}
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ member.name }}</h5>
+                        <p class="text-muted">{{ member.position }}</p>
+                        <p class="card-text small">{{ member.bio|truncatewords:20 }}</p>
+                        <div class="member-social">
+                            {% if member.email %}
+                            <a href="mailto:{{ member.email }}"><i class="bi bi-envelope"></i></a>
+                            {% endif %}
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                            <a href="#"><i class="bi bi-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">暂无核心团队成员信息</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- 团队成员 -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">研究团队成员</h2>
+        <div class="row g-4">
+            {% for member in other_members %}
+            <div class="col-md-4 col-lg-3">
+                <div class="card member-card shadow-sm h-100">
+                    {% if member.avatar %}
+                    <img src="{{ member.avatar.url }}" class="member-img-small" alt="{{ member.name }}">
+                    {% else %}
+                    <img src="https://via.placeholder.com/300x300?text={{ member.name }}" class="member-img-small" alt="{{ member.name }}">
+                    {% endif %}
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ member.name }}</h5>
+                        <p class="text-muted">{{ member.position }}</p>
+                        <p class="card-text small">{{ member.bio|truncatewords:10 }}</p>
+                        {% if member.email %}
+                        <a href="mailto:{{ member.email }}" class="btn btn-sm btn-outline-primary"><i class="bi bi-envelope me-1"></i>联系</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">暂无研究团队成员信息</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- 团队价值观 -->
+<section class="py-5 team-values">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">我们的价值观</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card value-card p-4 text-center h-100">
+                    <div class="value-icon mx-auto">
+                        <i class="bi bi-lightbulb"></i>
+                    </div>
+                    <h4>创新</h4>
+                    <p>我们不断探索新思路、新方法和新技术，勇于挑战传统，推动制造科学领域的创新发展。</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card value-card p-4 text-center h-100">
+                    <div class="value-icon mx-auto">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <h4>合作</h4>
+                    <p>我们相信跨学科合作的力量，通过团队协作、开放交流和资源共享，实现更大的科研突破。</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card value-card p-4 text-center h-100">
+                    <div class="value-icon mx-auto">
+                        <i class="bi bi-graph-up"></i>
+                    </div>
+                    <h4>卓越</h4>
+                    <p>我们追求学术卓越和研究质量，以严谨的科学态度和高标准要求自己，确保研究成果的价值和影响力。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 加入我们 -->
+<section class="py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-8">
+                <h2 class="mb-4">加入我们的团队</h2>
+                <p class="lead mb-4">我们欢迎有才华、有激情的专业人士加入我们的团队，一起推动制造科学领域的发展</p>
+                <a href="{% url 'science:about' %}" class="btn btn-light btn-lg">了解更多</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
