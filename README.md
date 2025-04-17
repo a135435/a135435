@@ -1,62 +1,61 @@
-# 智造科技网站
+# 科研管理系统
 
-一个使用Django构建的科技企业网站，展示公司的研究成果、产品和服务。
+基于Django开发的科研项目管理系统，用于展示和管理研究方向、研究项目、研究成果等。
 
 ## 功能特点
 
-- 响应式设计，适应各种设备
-- 公司信息展示
-- 研究成果和技术动态
-- 产品和服务介绍
-- 在线联系表单
+- 用户注册与登录
+- 研究方向管理
+- 研究项目展示
+- 研究成果发布
+- 科研动态分享
+- 响应式设计，支持多设备访问
 
 ## 技术栈
 
-- Django
+- Django 4.2
+- Python 3.9+
 - HTML5/CSS3
 - JavaScript
-- Bootstrap
-- SQLite (开发) / PostgreSQL (生产)
 
-## 安装与设置
+## 安装
 
 1. 克隆仓库
-```
+```bash
 git clone https://github.com/a135435/a135435.git
 cd a135435
 ```
 
-2. 创建并激活虚拟环境
-```
+2. 创建虚拟环境并激活
+```bash
 python -m venv venv
-source venv/bin/activate  # 在Windows上使用: venv\Scripts\activate
+# Windows
+venv\Scripts\activate
+# Linux/Mac
+source venv/bin/activate
 ```
 
 3. 安装依赖
-```
+```bash
 pip install -r requirements.txt
 ```
 
 4. 运行迁移
-```
+```bash
 python manage.py migrate
 ```
 
 5. 创建超级用户
-```
+```bash
 python manage.py createsuperuser
 ```
 
 6. 启动开发服务器
-```
+```bash
 python manage.py runserver
 ```
 
-## 项目结构
+## 使用
 
-- `zhizao/` - 主项目目录
-- `mainsite/` - 主站点应用
-- `scienceApp/` - 科研成果展示应用
-- `productApp/` - 产品展示应用
-- `templates/` - HTML模板
-- `static/` - 静态文件(CSS, JS, 图片)
+访问 http://127.0.0.1:8000/ 查看网站首页
+访问 http://127.0.0.1:8000/admin/ 进入管理后台
