@@ -38,10 +38,16 @@ ENV/
 *.swp
 *.swo
 
-# OS
+# OS files
 .DS_Store
 Thumbs.db
 
-# Static files
-/static/
-!/static/.gitkeep
+# Static files collected
+/staticfiles/
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
