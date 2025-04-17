@@ -1,79 +1,72 @@
-# 科研成果展示网站
+# 制造科学应用
 
-一个基于Django开发的科研成果展示平台，用于展示研究项目、论文、团队成员及相关活动。
+制造科学应用是一个基于Django开发的科研成果展示平台，为科研机构提供成果发布、展示和管理功能。
 
-## 功能特点
+## 主要功能
 
-- 科研项目展示
-- 研究成果详情页
-- 团队成员介绍
-- 响应式设计，支持各种设备访问
+- 科研成果发布与展示
+- 研究方向分类管理
+- 科研团队成员展示
+- 响应式设计，适配多种设备
+- 富文本编辑，支持图文混排
 
 ## 技术栈
 
-- Python 3.8+
 - Django 4.2.4
+- Python 3.8+
+- PostgreSQL (生产环境)
+- SQLite (开发环境)
 - Bootstrap 5
-- CKEditor (富文本编辑)
-- Pillow (图像处理)
-- Whitenoise (静态文件处理)
+- CKEditor 富文本编辑器
+- AWS S3 (可选，用于媒体文件存储)
 
-## 安装指南
+## 安装与使用
 
 1. 克隆仓库
+
 ```bash
-git clone https://github.com/a135435/a135435.git
-cd a135435
+git clone https://github.com/yourusername/scienceapp.git
+cd scienceapp
 ```
 
-2. 创建虚拟环境并激活
+2. 创建虚拟环境并安装依赖
+
 ```bash
 python -m venv venv
-# Windows
-venv\Scripts\activate
-# Linux/Mac
-source venv/bin/activate
-```
-
-3. 安装依赖
-```bash
+source venv/bin/activate  # Windows 使用: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-4. 运行迁移
+3. 数据库迁移
+
 ```bash
 python manage.py migrate
 ```
 
-5. 创建超级用户
+4. 创建超级用户
+
 ```bash
 python manage.py createsuperuser
 ```
 
-6. 运行开发服务器
+5. 运行开发服务器
+
 ```bash
 python manage.py runserver
 ```
 
-## 项目结构
+6. 访问网站
+   - 前台: http://127.0.0.1:8000/
+   - 后台管理: http://127.0.0.1:8000/admin/
 
-```
-project/
-├── scienceApp/         # 主应用
-│   ├── models.py       # 数据模型
-│   ├── views.py        # 视图函数
-│   ├── urls.py         # URL路由
-│   ├── templates/      # HTML模板
-│   └── static/         # 静态文件
-├── media/              # 用户上传文件
-├── manage.py           # Django管理脚本
-└── requirements.txt    # 项目依赖
-```
+## 部署指南
 
-## 部署
+项目支持使用Gunicorn和Whitenoise进行部署，详细部署步骤请参考Django官方文档。
 
-本项目可以部署在任何支持Python的服务器上，推荐使用Gunicorn作为WSGI服务器。
+## 贡献指南
+
+欢迎提交Issue或Pull Request来改进项目。
 
 ## 许可证
 
-MIT
+本项目采用MIT许可证。
