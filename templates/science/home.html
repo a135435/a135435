@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% block title %}首页 - 制造科学应用{% endblock %}
+
+{% block content %}
+<!-- 英雄部分 -->
+<section class="hero bg-primary text-white py-5">
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-md-7">
+                <h1 class="display-4 fw-bold mb-4">推进制造科学的创新与应用</h1>
+                <p class="lead mb-4">我们致力于科研成果的探索与分享，促进制造领域的科技进步与应用发展</p>
+                <div class="d-flex gap-3">
+                    <a href="{% url 'science:research_list' %}" class="btn btn-light btn-lg">浏览科研成果</a>
+                    <a href="{% url 'science:about' %}" class="btn btn-outline-light btn-lg">了解更多</a>
+                </div>
+            </div>
+            <div class="col-md-5 d-none d-md-block">
+                <img src="https://via.placeholder.com/500x300?text=科研图片" alt="科研图片" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 研究方向部分 -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">研究方向</h2>
+        <div class="row justify-content-center g-4">
+            {% for direction in directions %}
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-box mb-3">
+                            <i class="bi bi-diagram-3 text-primary fs-1"></i>
+                        </div>
+                        <h3 class="card-title h5 mb-3">{{ direction.name }}</h3>
+                        <p class="card-text">
+                            {% if direction.description %}
+                                {{ direction.description|truncatewords:20 }}
+                            {% else %}
+                                这个研究方向致力于{{ direction.name }}领域的科学探索和技术创新。
+                            {% endif %}
+                        </p>
+                        <div class="mt-3">
+                            <span class="badge bg-light text-dark">{{ direction.research_count }} 项研究</span>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent border-0 text-center">
+                        <a href="{% url 'science:direction_detail' direction.slug %}" class="btn btn-outline-primary">查看详情</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">暂无研究方向数据</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- 推荐科研成果部分 -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">推荐科研成果</h2>
+        <div class="row g-4">
+            {% for research in featured_researches %}
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    {% if research.cover_image %}
+                    <img src="{{ research.cover_image.url }}" class="card-img-top" alt="{{ research.title }}">
+                    {% else %}
+                    <img src="https://via.placeholder.com/300x200?text=科研成果" class="card-img-top" alt="{{ research.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <div class="mb-2">
+                            <span class="badge bg-primary">{{ research.direction.name }}</span>
+                            <small class="text-muted ms-2">{{ research.publish_date|date:"Y-m-d" }}</small>
+                        </div>
+                        <h5 class="card-title">{{ research.title }}</h5>
+                        <p class="card-text">
+                            {% if research.summary %}
+                                {{ research.summary|truncatewords:20 }}
+                            {% else %}
+                                {{ research.content|striptags|truncatewords:20 }}
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="card-footer bg-transparent border-0">
+                        <a href="{% url 'science:research_detail' research.slug %}" class="btn btn-sm btn-outline-primary">阅读更多</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">暂无推荐科研成果</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-5">
+            <a href="{% url 'science:research_list' %}" class="btn btn-primary">查看全部科研成果</a>
+        </div>
+    </div>
+</section>
+
+<!-- 核心团队成员部分 -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">核心团队成员</h2>
+        <div class="row justify-content-center g-4">
+            {% for member in key_members %}
+            <div class="col-md-3">
+                <div class="card text-center border-0 shadow-sm">
+                    {% if member.avatar %}
+                    <img src="{{ member.avatar.url }}" class="card-img-top rounded-circle mx-auto mt-4" style="width: 150px; height: 150px; object-fit: cover;" alt="{{ member.name }}">
+                    {% else %}
+                    <img src="https://via.placeholder.com/150?text=头像" class="card-img-top rounded-circle mx-auto mt-4" style="width: 150px; height: 150px; object-fit: cover;" alt="{{ member.name }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ member.name }}</h5>
+                        <p class="card-text text-muted">{{ member.position }}</p>
+                        <p class="card-text small">{{ member.bio|truncatewords:15 }}</p>
+                        {% if member.email %}
+                        <a href="mailto:{{ member.email }}" class="btn btn-sm btn-outline-primary"><i class="bi bi-envelope"></i> 联系</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">暂无团队成员数据</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-5">
+            <a href="{% url 'science:team' %}" class="btn btn-outline-primary">查看完整团队</a>
+        </div>
+    </div>
+</section>
+
+<!-- 联系我们部分 -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="section-title mb-4">合作咨询</h2>
+                <p class="lead mb-5">如果您对我们的研究感兴趣，或者有合作意向，欢迎与我们联系</p>
+                <div class="d-flex justify-content-center gap-4">
+                    <div>
+                        <i class="bi bi-envelope-fill text-primary fs-4"></i>
+                        <p class="mt-2">contact@scienceapp.com</p>
+                    </div>
+                    <div>
+                        <i class="bi bi-telephone-fill text-primary fs-4"></i>
+                        <p class="mt-2">(123) 456-7890</p>
+                    </div>
+                    <div>
+                        <i class="bi bi-geo-alt-fill text-primary fs-4"></i>
+                        <p class="mt-2">北京市海淀区科学院路</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
