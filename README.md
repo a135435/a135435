@@ -1,79 +1,62 @@
-# 科研信息管理系统
+# 智造科技网站
 
-一个基于Django的科研信息管理平台，用于管理和展示科研项目、成果和研究人员信息。
+一个使用Django构建的科技企业网站，展示公司的研究成果、产品和服务。
 
-## 项目特点
+## 功能特点
 
-- 科研项目管理与展示
-- 研究成果跟踪与统计
-- 研究人员信息管理
-- 数据可视化展示
-- 响应式设计，支持多设备访问
+- 响应式设计，适应各种设备
+- 公司信息展示
+- 研究成果和技术动态
+- 产品和服务介绍
+- 在线联系表单
 
 ## 技术栈
 
-- **后端**: Django 2.2.4
-- **前端**: HTML5, CSS3, JavaScript, Chart.js
-- **数据库**: SQLite (开发) / MySQL (生产)
-- **图像处理**: Pillow
+- Django
+- HTML5/CSS3
+- JavaScript
+- Bootstrap
+- SQLite (开发) / PostgreSQL (生产)
 
-## 安装步骤
+## 安装与设置
 
 1. 克隆仓库
-   ```bash
-   git clone https://github.com/yourusername/science-app.git
-   cd science-app
-   ```
+```
+git clone https://github.com/a135435/a135435.git
+cd a135435
+```
 
 2. 创建并激活虚拟环境
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # Windows使用: venv\Scripts\activate
-   ```
+```
+python -m venv venv
+source venv/bin/activate  # 在Windows上使用: venv\Scripts\activate
+```
 
 3. 安装依赖
-   ```bash
-   pip install -r requirements.txt
-   ```
+```
+pip install -r requirements.txt
+```
 
-4. 数据库迁移
-   ```bash
-   python manage.py migrate
-   ```
+4. 运行迁移
+```
+python manage.py migrate
+```
 
 5. 创建超级用户
-   ```bash
-   python manage.py createsuperuser
-   ```
+```
+python manage.py createsuperuser
+```
 
-6. 运行开发服务器
-   ```bash
-   python manage.py runserver
-   ```
-
-## 使用说明
-
-- 访问 `http://127.0.0.1:8000/` 浏览网站
-- 访问 `http://127.0.0.1:8000/admin/` 进入管理后台
+6. 启动开发服务器
+```
+python manage.py runserver
+```
 
 ## 项目结构
 
-```
-science-app/
-├── manage.py
-├── scienceApp/         # 主应用
-│   ├── admin.py        # 管理后台配置
-│   ├── models.py       # 数据模型
-│   ├── views.py        # 视图函数
-│   ├── urls.py         # URL路由
-│   ├── templates/      # HTML模板
-│   └── static/         # 静态文件
-└── science_project/    # 项目设置
-    ├── settings.py
-    ├── urls.py
-    └── wsgi.py
-```
-
-## 许可证
-
-本项目采用MIT许可证，详情请查看LICENSE文件。
+- `zhizao/` - 主项目目录
+- `mainsite/` - 主站点应用
+- `scienceApp/` - 科研成果展示应用
+- `productApp/` - 产品展示应用
+- `templates/` - HTML模板
+- `static/` - 静态文件(CSS, JS, 图片)
