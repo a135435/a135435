@@ -1,0 +1,232 @@
+{% extends 'base.html' %}
+{% block title %}{{ research.title }} - 制造科学应用{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* 详情页特定样式 */
+    .hero-section {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 80px 0;
+        position: relative;
+    }
+    
+    .hero-section::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 30px;
+        background: linear-gradient(to right bottom, transparent 49%, white 50%);
+    }
+    
+    .content-wrapper {
+        padding: 60px 0;
+    }
+    
+    .research-meta {
+        margin-bottom: 30px;
+        font-size: 0.95rem;
+    }
+    
+    .research-meta .meta-item {
+        margin-right: 20px;
+        display: inline-flex;
+        align-items: center;
+    }
+    
+    .research-meta i {
+        margin-right: 5px;
+    }
+    
+    .research-content {
+        line-height: 1.8;
+        font-size: 1.1rem;
+    }
+    
+    .research-content img {
+        max-width: 100%;
+        height: auto;
+        margin: 20px 0;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .research-content h2, 
+    .research-content h3, 
+    .research-content h4 {
+        margin-top: 40px;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+    
+    .feature-card {
+        border-radius: 10px;
+        padding: 25px;
+        height: 100%;
+        transition: all 0.3s;
+        border: 1px solid #eaeaea;
+    }
+    
+    .feature-card:hover {
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        transform: translateY(-5px);
+        border-color: var(--primary-color);
+    }
+    
+    .feature-card i {
+        font-size: 2rem;
+        margin-bottom: 15px;
+        color: var(--primary-color);
+    }
+    
+    .related-card {
+        transition: all 0.3s;
+        height: 100%;
+    }
+    
+    .related-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    @media (max-width: 768px) {
+        .hero-section {
+            padding: 60px 0;
+        }
+        
+        .content-wrapper {
+            padding: 40px 0;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- 英雄部分 -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-5 fw-bold mb-4">{{ research.title }}</h1>
+                <div class="research-meta text-white-50">
+                    <span class="meta-item">
+                        <i class="bi bi-calendar3"></i>
+                        发布日期: {{ research.publish_date|date:"Y年m月d日" }}
+                    </span>
+                    <span class="meta-item">
+                        <i class="bi bi-diagram-3"></i>
+                        研究方向: <a href="{% url 'science:direction_detail' research.direction.slug %}" class="text-white">{{ research.direction.name }}</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 内容部分 -->
+<section class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <!-- 主要内容 -->
+            <div class="col-lg-8">
+                {% if research.cover_image %}
+                <img src="{{ research.cover_image.url }}" alt="{{ research.title }}" class="img-fluid rounded mb-4 w-100">
+                {% endif %}
+                
+                {% if research.summary %}
+                <div class="summary bg-light p-4 rounded mb-4">
+                    <h5>摘要</h5>
+                    <p class="mb-0">{{ research.summary }}</p>
+                </div>
+                {% endif %}
+                
+                <div class="research-content">
+                    {{ research.content|safe }}
+                </div>
+            </div>
+            
+            <!-- 侧边栏 -->
+            <div class="col-lg-4">
+                <!-- 核心特点 -->
+                <div class="sidebar-section mb-5">
+                    <h4 class="mb-4">核心特点</h4>
+                    <div class="row g-3">
+                        {% if research.core_feature_1 %}
+                        <div class="col-12">
+                            <div class="feature-card">
+                                <i class="bi bi-lightning-charge"></i>
+                                <h5>特点一</h5>
+                                <p class="mb-0">{{ research.core_feature_1 }}</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        {% if research.core_feature_2 %}
+                        <div class="col-12">
+                            <div class="feature-card">
+                                <i class="bi bi-tools"></i>
+                                <h5>特点二</h5>
+                                <p class="mb-0">{{ research.core_feature_2 }}</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        {% if research.core_feature_3 %}
+                        <div class="col-12">
+                            <div class="feature-card">
+                                <i class="bi bi-graph-up"></i>
+                                <h5>特点三</h5>
+                                <p class="mb-0">{{ research.core_feature_3 }}</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- 相关研究 -->
+                <div class="sidebar-section">
+                    <h4 class="mb-4">相关研究</h4>
+                    {% for related in related_researches %}
+                    <div class="card mb-3 related-card">
+                        <div class="row g-0">
+                            {% if related.cover_image %}
+                            <div class="col-4">
+                                <img src="{{ related.cover_image.url }}" class="img-fluid rounded-start h-100" style="object-fit: cover;" alt="{{ related.title }}">
+                            </div>
+                            {% endif %}
+                            <div class="{% if related.cover_image %}col-8{% else %}col-12{% endif %}">
+                                <div class="card-body">
+                                    <h6 class="card-title">{{ related.title }}</h6>
+                                    <p class="card-text"><small class="text-muted">{{ related.publish_date|date:"Y-m-d" }}</small></p>
+                                    <a href="{% url 'science:research_detail' related.slug %}" class="stretched-link"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-muted">暂无相关研究</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 推荐部分 -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h3 class="mb-4">发现更多科研成果</h3>
+                <p class="mb-5">浏览我们的研究方向和科研成果库，探索更多精彩内容</p>
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <a href="{% url 'science:research_list' %}" class="btn btn-primary">所有科研成果</a>
+                    <a href="{% url 'science:direction_detail' research.direction.slug %}" class="btn btn-outline-primary">同方向研究</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
