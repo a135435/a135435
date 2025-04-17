@@ -1,24 +1,24 @@
-# 科研管理系统
+# 科研成果展示网站
 
-基于Django开发的科研项目管理系统，用于展示和管理研究方向、研究项目、研究成果等。
+一个基于Django开发的科研成果展示平台，用于展示研究项目、论文、团队成员及相关活动。
 
 ## 功能特点
 
-- 用户注册与登录
-- 研究方向管理
-- 研究项目展示
-- 研究成果发布
-- 科研动态分享
-- 响应式设计，支持多设备访问
+- 科研项目展示
+- 研究成果详情页
+- 团队成员介绍
+- 响应式设计，支持各种设备访问
 
 ## 技术栈
 
-- Django 4.2
-- Python 3.9+
-- HTML5/CSS3
-- JavaScript
+- Python 3.8+
+- Django 4.2.4
+- Bootstrap 5
+- CKEditor (富文本编辑)
+- Pillow (图像处理)
+- Whitenoise (静态文件处理)
 
-## 安装
+## 安装指南
 
 1. 克隆仓库
 ```bash
@@ -50,12 +50,30 @@ python manage.py migrate
 python manage.py createsuperuser
 ```
 
-6. 启动开发服务器
+6. 运行开发服务器
 ```bash
 python manage.py runserver
 ```
 
-## 使用
+## 项目结构
 
-访问 http://127.0.0.1:8000/ 查看网站首页
-访问 http://127.0.0.1:8000/admin/ 进入管理后台
+```
+project/
+├── scienceApp/         # 主应用
+│   ├── models.py       # 数据模型
+│   ├── views.py        # 视图函数
+│   ├── urls.py         # URL路由
+│   ├── templates/      # HTML模板
+│   └── static/         # 静态文件
+├── media/              # 用户上传文件
+├── manage.py           # Django管理脚本
+└── requirements.txt    # 项目依赖
+```
+
+## 部署
+
+本项目可以部署在任何支持Python的服务器上，推荐使用Gunicorn作为WSGI服务器。
+
+## 许可证
+
+MIT
